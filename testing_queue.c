@@ -619,30 +619,54 @@ int main(void) {
     
     test_queue_simple();
     
-    
+    //test errors 
+	
     test_errors();
     
+   //test if queue deletion works 
+	
     test_queue_delete();
+	
+   //test if re-enqueue works
     
     test_reenqueue();
+	
+   //test if doubling destroying the queue works
     
     test_double_dequeue();
+	
+   //test if iterator works properly
     
     test_iterator();
+
+    //test if we successfully destroy queue
+    //whether accessing it or not
     
     test_destroy();
+
+    //test if handle charaters properly
     
     test_character();
+
+    //teset if we created iteration in queue succesfully. 
     
     test_queue_create_iter();
     
+    //delete iteration. 
+    
     test_delete_iter();
+    
+    //test create repeatedly. 
     
     test_create_create();
     
-    test_enqueue_dequeue();
+    //enqueue and dequeue processes 
     
-    test_multi_queue();
+    test_enqueue_dequeue();
+
+    //multiply queues
+    
+    test_multi_queue(); 
 
     return 0;
 }
