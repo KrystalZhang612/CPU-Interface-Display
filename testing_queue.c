@@ -1,3 +1,5 @@
+//assert.h to check our tests assumptions correctness
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
