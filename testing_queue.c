@@ -606,11 +606,19 @@ void test_multi_queue(void) {
     ASSERTING_TEST(data[0] == 3);  
 }
 
+
+//test our functions in driver code
+
 int main(void) {
+	
+   //test queue creation 
     
     test_create();
+	
+   //test simple queue 
     
     test_queue_simple();
+    
     
     test_errors();
     
