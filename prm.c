@@ -1,7 +1,13 @@
 
+//PRSIM file
+
+//to defines miscellaneous symbolic constants and types
+//declares miscellaneous functions
+
 #include <unistd.h>
-//to defines miscellaneous symbolic constants and types, and declares miscellaneous function
+
 #include "datas.h"
+
 #include "arrange_queue.h"
 
 //maximum quantum as 5
@@ -127,11 +133,16 @@ void runCPU() {
         return;
     }
     
-    
+    //decrement the CPU time remained 
+	
     cpu-> timeremainedCPU--;
+
+    //decrement runtime left 
     
     runTime_left--;
     
+    //increment to allocate sysCPU busy time
+	
     sysCPU->busy++;
     
     if (requires_blocking) {
@@ -231,11 +242,18 @@ void runio() {
         struct process* currentProcess; 
         
         queue_dequeue(io_queue, (void**)&currentProcess);
+	    
+	    //setup the current position
+	    //move to I/O device
         
 	    movetoiodev(currentProcess->IOprocessing, currentProcess);
+	    
+	//keep traversing through I/O system 
         
         sysIO->number++;
     }
+	
+    //similarly, decrement I/O remaining time. 
 	
     iodev-> timeremainedIO--;
     
@@ -253,6 +271,7 @@ void runio() {
         io_is_idle = 1; 
         
         queue_enqueue(ready_queue, iodev);
+	    
         //move to I/O 
         
         iodev = NULL; 
