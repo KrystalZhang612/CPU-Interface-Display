@@ -1,6 +1,10 @@
 
+//assert.h to check accuarcies of our tests assumptions 
+
 #include <assert.h>
+
 #include "arrange_queue.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -124,6 +128,7 @@ void displayResource(struct resource* res) {
         printf("CPU utilization: %.2f\n", res->util);
         
         printf("Number of dispatches: %d\n", res->number);
+	    
         printf("Overall throughput: %.2f\n", res->throughput);
     }
     else if(strcmp(res->name, "IO")) {
@@ -318,7 +323,12 @@ int main( int argc, char *argv[] ) {
         //non zero, 0 otherwise
         
         int requires_blocking = 0; 
-
+	    
+	    //similarly to the process structure implementation 
+	    
+	    //track various runtimes 
+	    
+	   //to strictly adhere to the first-come-first served scheduling orders 
 
         if (ready_queue->index_counting > 0 && cpu == NULL) {
             
@@ -345,7 +355,7 @@ int main( int argc, char *argv[] ) {
         
         
 
-        //run 
+        //run remaining jobs 
         
         clock++;
         
@@ -388,3 +398,4 @@ int main( int argc, char *argv[] ) {
     }
     return 0;
 }
+
