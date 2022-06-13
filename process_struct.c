@@ -1,23 +1,41 @@
+//assert.h tp test the accuracies of our tests assumptions 
+
 #include <assert.h>
+
+//arange queues 
+
 #include "arrange_queue.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
-//process struct
+//process structure 
 
 struct process {
+	
+	//different processes name 
     
 	char *name;
     
+    //number of CPU in total 
+	
     int CPU_in_total;
+    
+    //current CPU time completed track
     
     int time_completed;
     
+    //CPU provided 
+    
     int CPUprovided;
+	
+    //I/O blocked
     
     int IOblocked;
+    
+    //I/O system processing
     
     int IOprocessing;
 };
@@ -26,31 +44,51 @@ struct process {
 //resource 
 
 struct resource {
+	
+	//different resources names 
     
 	char *name; 
     
+	//busy time 
+	
     int busy;
-    
+	
+    //idle time 
+	
     int idle;
+	
+    //utilization time 
     
     double util; 
     
-    //dispatches
+    //number of dispatches
     
     int number; 
+    
+   //number of throughput 
     
     double throughput;
 };
 
 //from diffrent queues 
 
+//setup the ready quque 
+
 queue_t ready_queue;
+
+//setup the I/O queue 
 
 queue_t io_queue;
 
+//setup the statistic queue 
+
 queue_t stats_queue;
 
+//setup CPU system,I/O system 
+
 struct resource *sysCPU, *sysIO;
+
+//generating process attributes  
 
 struct process* generatingProcess(char *name, int CPU_in_total, int time_completed, int CPUprovided, int IOblocked, int IOprocessing) {
     
@@ -110,33 +148,61 @@ struct resource* buildResource(char *name, int busy, int idle, int number) {
 //display resource 
 
 void displayResource(struct resource* res) {
+	
+	//CPU resources 
     
     if(strcmp(res->name, "CPU")) {
         
+	//display current CPU resources name 
+	    
         printf("%s:\n", res->name);
+	    
+	//display current CPU busy time
         
         printf("Total time spent busy: %d\n", res->busy);
+	
+	//display current CPU idle time 
         
         printf("Total time spent idle: %d\n", res->idle);
+	
+	//display current CPU number of ultilization 
         
         printf("CPU utilization: %.2f\n", res->util);
-        
+	    
+        //display the number of dispatches 
+	    
         printf("Number of dispatches: %d\n", res->number);
+	    
+	//display the overall throughputs
         
         printf("Overall throughput: %.2f\n", res->throughput);
         
     }
+	//current I/O resources display
+	
     else if(strcmp(res->name, "IO")) {
-        
+	    
+        //display the current I/O name 
+	    
         printf("%s:\n", res->name);
+	  
+	    //display the current I/O total time spent busy 
         
         printf("Total time spent busy: %d\n", res->busy);
         
+	    //display the current I/O total time spent idle 
+	    
         printf("Total time spent idle: %d\n", res->idle);
+	    
+	    //display the current I/O device ultilization 
         
         printf("I/O device utilization: %.2f\n", res->util);
+	    
+	    //display the current number of times I/O was started 
         
         printf("Number of times I/O was started: %d\n", res->number);
+	    
+	    //display the current I/O overall throughput number 
         
         printf("Overall throughput: %.2f\n", res->throughput);
     }
@@ -153,14 +219,23 @@ void displayResource(struct resource* res) {
 
 int main(void) {
     
+     //generate random
 
     (void) srandom(12345);
-    
+	
+	//create ready queue
+	
     ready_queue = queue_create();
+	
+	//create I/O queue 
     
     io_queue = queue_create();
+	
+	//create status queue to track status 
 
     stats_queue = queue_create();
+	
+	//initialize all times 
 
     int clock = 0;
     
@@ -211,7 +286,11 @@ int main(void) {
                 remaining_job_runtime = rand();
             }
             
+		//return requiring blocking is true 
+		
             requires_blocking = 1;
+		
+		//increment dispatches 
             
             dispatches++;
         }
@@ -220,9 +299,15 @@ int main(void) {
         
         clock++;
         
+	    //if there is still jobs remained with run time 
+	    
         if (remaining_job_runtime > 0) {
+		
+		//decrement it 
             
             remaining_job_runtime--;
+		
+		//increment busy time 
             
             busy_time++;
             
