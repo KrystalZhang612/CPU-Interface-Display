@@ -298,9 +298,13 @@ int queue_iterate(queue_t queue, queue_func_t func, void* arg, void** data) {
 
 int queue_length(queue_t queue) {
 	
+	//if queue is empty
+	//exit 
+	
 	if (queue == NULL)
 		
 		return -1;
+	//else start counting the index 
 	
 	return queue->index_counting;
 }
