@@ -1,3 +1,5 @@
+//assert.h to check the accuracies of various tests assumptions
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
@@ -167,45 +169,73 @@ void calcResourceStats(struct resource* res, int count) {
 
 
 
-//display the resource
+//display the resource CPU 
 
 void displayResource(struct resource* res) {
     
     if(strcmp(res->name, "CPU") == 0) {
+	 
+	//display the CPU resource name
         
         printf("\n%s:\n", res->name);
         
-        printf("Total time spent busy: %d\n", res->busy);
+	//display the CPU total time spent busy
+	
+        printf("Total time CPU spent busy: %d\n", res->busy);
+	
+	//display the total time CPU idle 
         
         printf("Total time spent idle: %d\n", res->idle);
+	
+	//display the CPU utilization 
         
         printf("CPU utilization: %.2f\n", res->util);
         
+	//display the number of CPU dispatches 
+	    
         printf("Number of dispatches: %d\n", res->number);
+	
+	//display the overall CPU throughput 
         
         printf("Overall throughput: %.2f\n", res->throughput);
         
     }
     
     
-    //error exception handling 
-    
+  
+    //display the resources I/O inputs
+	
     else if(strcmp(res->name, "IO") == 0) {
-        
+	    
+	
+        //I/O device name 
+	    
         printf("\nI/O device:\n");
         
+	//display the total time I/O spent busy 
+	    
         printf("Total time spent busy: %d\n", res->busy);
-        
+	    
+        //display the total time I/O spent idle 
+	    
         printf("Total time spent idle: %d\n", res->idle);
         
+	//display the I/O utilization 
+	    
         printf("I/O utilization: %.2f\n", res->util);
+	    
+	//display the I/O number of dispatches 
         
         printf("Number of dispatches: %d\n", res->number);
+	    
+	//display the overall throughput 
         
         printf("Overall throughput: %.2f\n", res->throughput);
         
     }
     else {
+       //error exception handling 
+	    
         printf("Error Resource Type");
     }
 }
